@@ -1,2 +1,2 @@
-# deployment-envronment
+# deployment-envronments
 Constants for Deployment Environments

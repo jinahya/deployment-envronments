@@ -26,16 +26,23 @@ public enum DeploymentEnvironment {
     PRODUCTION("live");
 
     // -----------------------------------------------------------------------------------------------------------------
-    private static final String REGEXP = "[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*";
+    private static final String REGEXP_ALIAS = "[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*";
 
-    private static final Pattern PATTERN = Pattern.compile(REGEXP);
+    private static Pattern PATTERN_ALIAS;
+
+    private static Pattern patternAlias() {
+        if (PATTERN_ALIAS == null) {
+            PATTERN_ALIAS = Pattern.compile(REGEXP_ALIAS);
+        }
+        return PATTERN_ALIAS;
+    }
 
     private static String validates(final String alias) {
         if (alias == null) {
             throw new NullPointerException("alias is null");
         }
-        if (!PATTERN.matcher(alias).matches()) {
-            throw new IllegalArgumentException("alias('" + alias + "') doesn't match to " + REGEXP);
+        if (!PATTERN_ALIAS.matcher(alias).matches()) {
+            throw new IllegalArgumentException("alias('" + alias + "') doesn't match to " + REGEXP_ALIAS);
         }
         return alias;
     }
